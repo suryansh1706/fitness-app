@@ -55,6 +55,30 @@ const onion = {
     carbohydrates_by_weight: 9
 }
 
+const chicken_leg = {
+    name: "Chicken Leg",
+    calories: 180,
+    calories_by_weight: 180,
+    protein: 27,
+    protein_by_weight: 27,
+    fat: 8,
+    fat_by_weight: 8,
+    carbohydrates: 0,
+    carbohydrates_by_weight: 0
+}
+
+const milk = {
+    name: "Milk",
+    calories: 103,
+    calories_by_weight: 42,
+    protein: 8,
+    protein_by_weight: 3.4,
+    fat: 2,
+    fat_by_weight: 1,
+    carbohydrates: 12,
+    carbohydrates_by_weight: 5
+}
+
 let selectedIngredient = null;
 Add.addEventListener("click", function () {
     selectedIngredient = Dropdown.value;
@@ -92,6 +116,14 @@ Add.addEventListener("click", function () {
             selectedIngredient = onion;
         }
 
+        else if (selectedIngredient === "chicken_leg") {
+            selectedIngredient = chicken_leg;
+        }
+            
+        else if (selectedIngredient === "milk") {
+            selectedIngredient = milk;
+        }
+            
         else {
             alert("Please select an ingredient");
             return;
