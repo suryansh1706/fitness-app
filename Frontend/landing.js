@@ -1,4 +1,4 @@
-const Add = document.querySelector("#add");
+const AddBtn = document.querySelector("#addbtn");
 const Dropdown = document.querySelector("#ingredient");
 const Quantity = document.querySelector("#quantity");
 const Unit = document.querySelector("#unit");
@@ -80,7 +80,7 @@ const milk = {
 }
 
 let selectedIngredient = null;
-Add.addEventListener("click", function () {
+AddBtn.addEventListener("click", function () {
     selectedIngredient = Dropdown.value;
 });
 
@@ -90,7 +90,7 @@ let fat = 0;
 let carbohydrates = 0;
 
 
-Add.addEventListener("click", function () {
+AddBtn.addEventListener("click", function () {
     
     const qty = Quantity.value;
     
