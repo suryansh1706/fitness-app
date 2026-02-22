@@ -9,7 +9,7 @@ require("./Authentication/passport");
 const ensureAuth = require("./Middlewares/authMiddleware");
 const oauthRouter = require("./Routes/oauthRouter");
 const authRouter = require("./Routes/authRouter");
-
+const mealsRouter = require("./Routes/mealsRouter");
 
 app.use(express.json());
 app.use(passport.initialize());
@@ -22,7 +22,7 @@ app.use(cors({
 
 app.use("/oauth", oauthRouter);
 app.use("/auth", authRouter);
-
+app.use("/meals", mealsRouter);
 
 // basic route
 app.get('/', ensureAuth, (req, res) => {
