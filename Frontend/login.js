@@ -18,7 +18,7 @@ form.addEventListener('submit', async (event) => {
 
         if (response.ok) {
             alert('Login successful!');
-            localStorage.setItem('token', data.token);
+            localStorage.setItem('jwtToken', data.jwtToken);
             window.location.href = `http://127.0.0.1:5500/Frontend/landing.html`;
         } else {
             alert(`Login failed: ${data.message}`);
