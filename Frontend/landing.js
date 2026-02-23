@@ -81,4 +81,13 @@ SaveBtn.addEventListener("click", async function () {
         console.error("Error saving meal:", error);
         alert("An error occurred while saving the meal. Please try again later.");
     }
+
+    Dropdown.value = "";
+    Unit.value = "";
+    Quantity.value = "";
+    
+    Calories.textContent = 0;
+    Protein.textContent = 0;
+    Fat.textContent = 0;
+    Carbohydrates.textContent = 0;
 });
