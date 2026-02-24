@@ -1,4 +1,3 @@
-thinking of giving an option for saving a meal and the user will provide a name and then click on save.
 thinking of giving complete stats for the whole day like total calories, total protein etc.
 thinking of giving insights like most eaten meal, highest calorie meal, etc.
 user will be able to retreive directly the saved meal avoiding calculating for the same meal.
