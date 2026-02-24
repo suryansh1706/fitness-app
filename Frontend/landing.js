@@ -106,7 +106,6 @@ FetchMealBtn.addEventListener("click", async function () {
             }
         }); 
         const data = await response.json();
-        console.log(data);
         displayMeals(data.meals);
     } catch (error) {
         console.error("Error fetching meals:", error);
