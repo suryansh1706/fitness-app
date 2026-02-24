@@ -9,7 +9,7 @@ const Fat = document.querySelector("#fat");
 const Carbohydrates = document.querySelector("#carbohydrates");
 import { ingredients } from "./ingredients.js";
 const FetchMealBtn = document.querySelector("#fetchmeal");
-
+import { displayMeals } from "./displayMeal.js";
 
 // intializing the variables to store the total calories, protein, fat and carbohydrates
 let calories = 0;
@@ -98,14 +98,16 @@ FetchMealBtn.addEventListener("click", async function () {
     const jwtToken = localStorage.getItem("jwtToken");
 
     try {
-        const response = await fetch("http://localhost:5000/meals", {
+        const response = await fetch("http://localhost:5000/meals/fetch", {
             method: 'GET',
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${jwtToken}`
             }
         }); 
         const data = await response.json();
-        console.log("Fetched meals:", data);
+        console.log(data);
+        displayMeals(data.meals);
     } catch (error) {
         console.error("Error fetching meals:", error);
     }
