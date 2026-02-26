@@ -11,4 +11,4 @@ const fetchMeals = async (req, res) => {
     }
 };
 
-module.exports = { fetchMeals };
+module.exports = fetchMeals;

@@ -22,4 +22,4 @@ const saveMeal = async (req, res) => {
     }
 };
 
-module.exports = { saveMeal };
+module.exports = saveMeal;
