@@ -7,6 +7,10 @@ const Calories = document.querySelector("#calories");
 const Protein = document.querySelector("#protein");
 const Fat = document.querySelector("#fat");
 const Carbohydrates = document.querySelector("#carbohydrates");
+const CaloriesToday = document.querySelector("#caloriestoday");
+const ProteinToday = document.querySelector("#proteintoday");
+const FatToday = document.querySelector("#fattoday");
+const CarbohydratesToday = document.querySelector("#carbohydratestoday");
 import { ingredients } from "./ingredients.js";
 const FetchMealBtn = document.querySelector("#fetchmeal");
 import { displayMeals } from "./displayMeal.js";
@@ -109,5 +113,27 @@ FetchMealBtn.addEventListener("click", async function () {
         displayMeals(data.meals);
     } catch (error) {
         console.error("Error fetching meals:", error);
+    }
+});
+
+window.addEventListener("load", async function () {
+    const jwtToken = localStorage.getItem("jwtToken");
+
+    try {
+        const response = await fetch("http://localhost:5000/meals/daily", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${jwtToken}`
+            }
+        });
+        const data = await response.json();
+        CaloriesToday.textContent = data.calories;
+        ProteinToday.textContent = data.protein;
+        FatToday.textContent = data.fat;
+        CarbohydratesToday.textContent = data.carbohydrates;
+    }
+    catch (error) {
+        console.error("Error fetching daily macros:", error);
     }
 });
