@@ -25,7 +25,7 @@ router.get(
       { expiresIn: "7d" }
     );
 
-    res.redirect(`http://127.0.0.1:5500/Frontend/landing.html?token=${token}`);
+    res.redirect(`http://127.0.0.1:5500/Frontend/public/dashboard.html?token=${token}`);
   }
 );
 
