@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meal Tracker Dashboard</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to the Meal Tracker</h1>
+        <p>Track your meals and stay healthy!</p>
+
+        <div class="meal-input-section">
+            <h2>Add Ingredient</h2>
+            <select name="ingredient" id="ingredient" required>
+                <option value="" disabled selected hidden>Choose your ingredient</option>
+                <option value="whole_egg">Whole Egg</option>
+                <option value="bread">Bread</option>
+                <option value="peanut_butter">Peanut Butter</option>
+                <option value="onion">Onion</option>
+                <option value="chicken_leg">Chicken Leg</option>
+                <option value="milk">Milk</option>
+            </select>
+
+            <select name="unit" id="unit" required>
+                <option value="" disabled selected hidden>Choose your unit</option>
+                <option value="piece">Piece</option>
+                <option value="gram">Gram</option>
+            </select>
+
+            <input type="text" id="quantity" name="quantity" placeholder="Enter quantity" />
+            <button id="addbtn">Add Ingredient</button>
+        </div>
+
+        <div class="macros-display">
+            <h2>Current Meal Macros</h2>
+            <p>
+                Calories: <span id="calories">0</span> kcal<br />
+                Protein: <span id="protein">0</span>g<br />
+                Fat: <span id="fat">0</span>g<br />
+                Carbohydrates: <span id="carbohydrates">0</span>g
+            </p>
+        </div>
+
+        <div class="meal-actions">
+            <button id="savebtn">Save Meal</button>
+            <button id="fetchmeal">Fetch My Meals</button>
+        </div>
+
+        <div id="mealsContainer" class="meals-list"></div>
+
+        <div class="daily-macros">
+            <h2>Today's Macros</h2>
+            <p>
+                Calories: <span id="caloriestoday">0</span> kcal<br />
+                Protein: <span id="proteintoday">0</span>g<br />
+                Fat: <span id="fattoday">0</span>g<br />
+                Carbohydrates: <span id="carbohydratestoday">0</span>g
+            </p>
+        </div>
+    </div>
+
+    <script type="module" src="../src/main.js"></script>
+</body>
+</html>
