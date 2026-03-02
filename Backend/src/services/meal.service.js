@@ -21,19 +21,4 @@ const fetchMeals = async (userId) => {
     return meals;
 };
 
-const deleteMeal = async (mealId, userId) => {
-    const meal = await Meal.findById(mealId);
-    
-    if (!meal) {
-        throw new Error("Meal not found");
-    }
-
-    if (meal.createdBy.toString() !== userId) {
-        throw new Error("Not authorized to delete this meal");
-    }
-
-    await Meal.findByIdAndDelete(mealId);
-    return { message: "Meal deleted successfully" };
-};
-
-module.exports = { saveMeal, fetchMeals, deleteMeal };
+module.exports = { saveMeal, fetchMeals };

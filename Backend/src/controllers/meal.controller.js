@@ -1,4 +1,4 @@
-const { saveMeal, fetchMeals, deleteMeal } = require('../services/meal.service');
+const { saveMeal, fetchMeals } = require('../services/meal.service');
 const { calculateDailyMacros } = require('../services/dailymacro.service');
 
 const saveMealController = async (req, res) => {
@@ -35,20 +35,8 @@ const getDailyMacrosController = async (req, res) => {
     }
 };
 
-const deleteMealController = async (req, res) => {
-    try {
-        const { mealId } = req.params;
-        const userId = req.userId;
-        const result = await deleteMeal(mealId, userId);
-        res.status(200).json(result);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
-
 module.exports = { 
     saveMealController, 
     fetchMealsController, 
-    getDailyMacrosController,
-    deleteMealController 
+    getDailyMacrosController
 };
