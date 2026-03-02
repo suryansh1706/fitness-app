@@ -46,9 +46,4 @@ export const authController = {
     getToken() {
         return authModel.getToken();
     },
-
-    logout() {
-        authModel.clearToken();
-        helpers.redirectTo('http://127.0.0.1:5500/Frontend/public/index.html');
-    }
 };

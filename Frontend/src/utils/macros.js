@@ -17,8 +17,4 @@ export const calculateMacros = {
             carbohydrates: quantity * ingredient.carbohydrates
         };
     },
-
-    formatMacros(value) {
-        return parseFloat(value.toFixed(2));
-    }
 };

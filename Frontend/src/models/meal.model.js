@@ -2,10 +2,6 @@
 export const mealModel = {
     meals: [],
 
-    addMeal(meal) {
-        this.meals.push(meal);
-    },
-
     setMeals(meals) {
         this.meals = meals;
     },
@@ -13,8 +9,4 @@ export const mealModel = {
     getMeals() {
         return this.meals;
     },
-
-    clearMeals() {
-        this.meals = [];
-    }
 };
