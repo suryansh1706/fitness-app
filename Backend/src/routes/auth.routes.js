@@ -19,13 +19,13 @@ router.get(
   "/google/callback",
   passport.authenticate("google", { session: false }),
   (req, res) => {
-    const token = jwt.sign(
+    const jwtToken = jwt.sign(
       { id: req.user._id },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    res.redirect(`http://127.0.0.1:5500/Frontend/public/dashboard.html?token=${token}`);
+    res.redirect(`http://127.0.0.1:5500/Frontend/public/dashboard.html?token=${jwtToken}`);
   }
 );
 
