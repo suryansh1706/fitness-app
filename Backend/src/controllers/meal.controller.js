@@ -1,5 +1,5 @@
 const { saveMeal, fetchMeals, deleteMeal } = require('../services/meal.service');
-const { calculateDailyMacros } = require('../services/macro.service');
+const { calculateDailyMacros } = require('../services/dailymacro.service');
 
 const saveMealController = async (req, res) => {
     try {
