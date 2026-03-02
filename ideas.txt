@@ -1,2 +1,3 @@
+need to fix a bug : store token from link (oauth)
 thinking of giving insights like most eaten meal, highest calorie meal, etc.
 user will be able to retreive directly the saved meal avoiding calculating for the same meal.
