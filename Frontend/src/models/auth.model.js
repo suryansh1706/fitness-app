@@ -1,7 +1,6 @@
 // Auth model - handles login/signup data
 export const authModel = {
     token: null,
-    user: null,
 
     setToken(jwtToken) {
         this.token = jwtToken;

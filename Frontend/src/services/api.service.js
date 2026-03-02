@@ -55,15 +55,4 @@ export const apiService = {
         });
         return response.json();
     },
-
-    async deleteMeal(mealId, token) {
-        const response = await fetch(`${API_BASE_URL}/meals/${mealId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        });
-        return response.json();
-    }
 };
