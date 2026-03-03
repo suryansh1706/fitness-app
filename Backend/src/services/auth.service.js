@@ -13,8 +13,7 @@ const signup = async (username, email, password) => {
         username,
         email,
         password: hashedPassword,
-        provider: 'local',
-        isVerified: false
+        provider: 'local'
     });
 
     await newUser.save();
@@ -30,10 +29,6 @@ const login = async (email, password) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
         throw new Error("Invalid password");
-    }
-
-    if (!user.isVerified) {
-        throw new Error("Please verify your email before logging in");
     }
 
     const jwtToken = jwt.sign(
