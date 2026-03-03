@@ -13,7 +13,8 @@ const signup = async (username, email, password) => {
         username,
         email,
         password: hashedPassword,
-        provider: 'local'
+        provider: 'local',
+        isVerified: false
     });
 
     await newUser.save();
