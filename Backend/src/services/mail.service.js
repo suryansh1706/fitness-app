@@ -1,28 +1,22 @@
 const nodemailer = require("nodemailer");
 
-// Create a transporter using Ethereal test credentials.
-// For production, replace with your actual SMTP server details.
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  secure: false, // Use true for port 465, false for port 587
-  auth: {
-    user: "maddison53@ethereal.email",
-    pass: "jn7jnAPss4f63QBp6D",
-  },
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS, // app password
+    },
 });
 
-// Send an email using async/await
 const mailSender = async (email, verificationToken) => {
-  const info = await transporter.sendMail({
-    from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
-    to: email,
-    subject: "Verification of your email address",
-    text: "Hello world?", // Plain-text version of the message
-    html: "<b>Hello world?</b>", // HTML version of the message
-  });
+    const verificationLink = `http://localhost:3000/verify-email?token=${verificationToken}`;
 
-  console.log("Message sent:", info.messageId);
+    await transporter.sendMail({
+        from: `"Meal Tracker" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: "Verify your email",
+        html: `<a href="${verificationLink}">Verify Email</a>`
+    });
 };
 
 module.exports = { mailSender };
