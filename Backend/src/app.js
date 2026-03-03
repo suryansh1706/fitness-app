@@ -6,7 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
 const mealRoutes = require("./routes/meal.routes");
 const ensureAuth = require("./middlewares/auth.middleware");
-
+const mailRoutes = require("./routes/mail.routes");
 require("./config/passport");
 
 const app = express();
@@ -25,6 +25,7 @@ app.use(cors({
 app.use("/auth", authRoutes);
 app.use("/oauth", authRoutes);
 app.use("/meals", mealRoutes);
+app.use("/mail", mailRoutes);
 
 // Basic health check route
 app.get('/', ensureAuth, (req, res) => {
