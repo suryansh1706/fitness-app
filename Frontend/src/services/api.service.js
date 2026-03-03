@@ -55,4 +55,14 @@ export const apiService = {
         });
         return response.json();
     },
+
+    // Email endpoint
+    async sendEmail(email) {
+        const response = await fetch(`${API_BASE_URL}/mail/send`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        return response.json();
+    }
 };
