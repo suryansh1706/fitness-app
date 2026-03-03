@@ -1,8 +1,8 @@
 import { apiService } from "../services/api.service.js";
 
-export const mailController = async (email) => {
+export const mailController = async (credentials) => {
     try {
-        await apiService.sendEmail(email);
+        await apiService.sendEmail(credentials.email);
         return { message: "Email sent successfully" };
     } catch (err) {
         console.log(err);
