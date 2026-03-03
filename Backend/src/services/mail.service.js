@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Send an email using async/await
-const mailSender = async (email) => {
+const mailSender = async (email, verificationToken) => {
   const info = await transporter.sendMail({
     from: '"Maddison Foo Koch" <maddison53@ethereal.email>',
     to: email,
