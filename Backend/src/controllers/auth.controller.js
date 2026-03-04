@@ -23,7 +23,7 @@ const loginController = async (req, res) => {
 
 const verifyTokenController = async (req, res) => {
     try {
-      await verifyEmailToken(req.query.verificationToken);
+      await verifyEmailToken(req.query.token);
       return res.redirect("http://127.0.0.1:5500/Frontend/public/login.html");
    } catch (error) {
       return res.redirect("http://127.0.0.1:5500/Frontend/public/error.html");
