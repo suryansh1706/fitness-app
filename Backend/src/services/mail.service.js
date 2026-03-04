@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailSender = async (email, verificationToken) => {
-    const verificationLink = `http://127.0.0.1:5500/Frontend/public/login.html?token=${verificationToken}`;
+    const verificationLink = `http://localhost:5000/Backend/src/auth.controller.js?token=${verificationToken}`;
 
     await transporter.sendMail({
         from: `"Meal Tracker" <${process.env.EMAIL_USER}>`,
