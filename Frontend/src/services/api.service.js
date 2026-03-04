@@ -55,14 +55,4 @@ export const apiService = {
         });
         return response.json();
     },
-
-    // Email endpoint
-    async sendEmail(credentials) {
-        const response = await fetch(`${API_BASE_URL}/mail/send`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: credentials.email, verificationToken: credentials.verificationToken })
-        });
-        return response.json();
-    }
 };
