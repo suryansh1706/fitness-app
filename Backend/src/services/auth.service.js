@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const crypto = require('crypto');
+const { mailController } = require('../controllers/mail.controller');
 
 const signup = async (username, email, password) => {
     const user = await User.findOne({ email });
@@ -24,6 +25,7 @@ const signup = async (username, email, password) => {
     });
 
     await newUser.save();
+    await mailController(email, verificationToken);
     return { message: "User registered successfully" };
 };
 
@@ -56,4 +58,15 @@ const login = async (email, password) => {
     };
 };
 
-module.exports = { signup, login };
+const verifyEmailToken = async (verificationToken) => {
+    const user = await User.findOne({ verificationToken, verificationExpires: { $gt: Date.now() } });
+    if (!user) {
+        throw new Error("Invalid or expired token");
+    }
+    user.isVerified = true;
+    user.verificationToken = undefined;
+    user.verificationExpires = undefined;
+    await user.save();
+};
+
+module.exports = { signup, login, verifyEmailToken };
