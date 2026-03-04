@@ -38,6 +38,10 @@ const login = async (email, password) => {
         throw new Error("Invalid password");
     }
 
+    if (!user.isVerified) {
+        throw new Error("Email not verified");
+    }
+    
     const jwtToken = jwt.sign(
         { email: user.email, _id: user._id },
         process.env.JWT_SECRET,
