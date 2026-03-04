@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const { signupController, loginController } = require("../controllers/auth.controller");
 const { signupValidation, loginValidation } = require("../middlewares/validation.middleware");
+const { verifyTokenController } = require("../controllers/auth.controller");
 
 // Local Authentication Routes
 router.post("/login", loginValidation, loginController);
 router.post("/signup", signupValidation, signupController);
+router.get("/verify-email", verifyTokenController);
 
 // OAuth Routes (Google)
 router.get(
