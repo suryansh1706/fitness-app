@@ -61,6 +61,8 @@
         </div>
     </div>
 
+    <!-- saving the token to localStorage for authenticated API calls -->
+    <!-- mainly for oauth, not sending the token for local login/signup in the link -->
     <script>
         const params = new URLSearchParams(window.location.search);
         const token = params.get("token");
