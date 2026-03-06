@@ -100,5 +100,27 @@ export const mealController = {
         } catch (error) {
             helpers.showError('Error fetching daily macros');
         }
+    },
+
+    async handleSearchMeals(input) {
+        const token = authController.getToken();
+        if (!token) {
+            helpers.showError('Not authenticated');
+            return;
+        }
+
+        const query = input.value.trim().toLowerCase();
+        if (!query) {
+            helpers.showAlert('Please enter a meal name to search');
+            return;
+        }
+
+        try {
+            const data = await apiService.searchMeal(query, token);
+            mealModel.setMeals(data.meals || []);
+            mealView.displayMeals(mealModel.getMeals());
+        } catch (error) {
+            helpers.showError('Error fetching meals');
+        }
     }
 };
