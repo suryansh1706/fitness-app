@@ -55,4 +55,15 @@ export const apiService = {
         });
         return response.json();
     },
+
+    async searchMeal(query, token) {
+        const response = await fetch(`${API_BASE_URL}/meals/search?query=${encodeURIComponent(query)}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.json();
+    }
 };
