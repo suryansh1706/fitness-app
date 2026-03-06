@@ -21,4 +21,9 @@ const fetchMeals = async (userId) => {
     return meals;
 };
 
-module.exports = { saveMeal, fetchMeals };
+const searchMeal = async (query) => {
+    const meals = await Meal.find({ name: { $regex: query, $options: 'i' } });
+    return meals;
+}
+
+module.exports = { saveMeal, fetchMeals, searchMeal };
