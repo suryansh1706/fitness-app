@@ -28,6 +28,12 @@ export const appController = {
                 mealController.handleFetchMeals();
             });
         }
+
+        if (mealView.elements.searchMealBtn) {
+            mealView.attachMealSearchListener((input) => {
+                mealController.handleSearchMeals(input);
+            });
+        }
     },
 
     setupDailyMacrosLoader() {
