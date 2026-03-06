@@ -1,4 +1,4 @@
-const { saveMeal, fetchMeals } = require('../services/meal.service');
+const { saveMeal, fetchMeals, searchMeal } = require('../services/meal.service');
 const { calculateDailyMacros } = require('../services/dailymacro.service');
 
 const saveMealController = async (req, res) => {
