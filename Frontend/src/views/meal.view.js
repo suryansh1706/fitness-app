@@ -11,6 +11,7 @@ export const mealView = {
         addBtn: document.querySelector('#addbtn'),
         saveBtn: document.querySelector('#savebtn'),
         fetchMealBtn: document.querySelector('#fetchmeal'),
+        searchMealBtn: document.querySelector('#searchMeal'),
         mealsContainer: document.querySelector('#mealsContainer')
     },
 
@@ -64,5 +65,9 @@ export const mealView = {
 
     attachFetchListener(callback) {
         this.elements.fetchMealBtn.addEventListener('click', callback);
+    },
+
+    attachMealSearchListener(callback) {
+        this.elements.searchMealBtn.addEventListener('click', callback);
     }
 };
