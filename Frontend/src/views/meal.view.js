@@ -35,6 +35,7 @@ export const mealView = {
         this.elements.dropdown.value = '';
         this.elements.unit.value = '';
         this.elements.quantity.value = '';
+        this.elements.mealNameInput.value = '';
     },
 
     displayMeals(meals) {
