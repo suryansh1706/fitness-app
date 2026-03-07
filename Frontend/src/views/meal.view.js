@@ -69,6 +69,8 @@ export const mealView = {
     },
 
     attachMealSearchListener(callback) {
-        this.elements.searchMealBtn.addEventListener('click', callback(this.elements.mealNameInput));
+        this.elements.searchMealBtn.addEventListener('click', () => {
+            callback(this.elements.mealNameInput);
+        });
     }
 };
