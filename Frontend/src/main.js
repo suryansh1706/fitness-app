@@ -30,4 +30,13 @@ document.addEventListener('DOMContentLoaded', () => {
             appController.initialize();
         }
     }
+
+    // Check if on profile page
+    if (currentPage.includes('profile.html')) {
+        if (!authController.isAuthenticated()) {
+            window.location.href = '/Frontend/public/index.html';
+        } else {
+            appController.loadUserProfile();
+        }
+    }
 });
