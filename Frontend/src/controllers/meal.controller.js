@@ -117,8 +117,9 @@ export const mealController = {
 
         try {
             const data = await apiService.searchMeal(query, token);
-            mealModel.setMeals(data.meals || []);
-            mealView.displayMeals(mealModel.getMeals());
+            data.meals.forEach(meal => {
+                mealView.updateMacroDisplay(meal);
+            });
         } catch (error) {
             helpers.showError('Error fetching meals');
         }
