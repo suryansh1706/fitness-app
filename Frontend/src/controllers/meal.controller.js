@@ -109,6 +109,7 @@ export const mealController = {
             return;
         }
 
+        macroState.reset();
         const query = input.value.trim().toLowerCase();
         if (!query) {
             helpers.showAlert('Please enter a meal name to search');
@@ -117,18 +118,21 @@ export const mealController = {
 
         try {
             const data = await apiService.searchMeal(query, token);
+            if (data.meals.length === 0) {
+                helpers.showAlert('No meals found with that name');
+                mealView.resetMealInputs();
+                return;
+            }
 
             let cnt = 0
             data.meals.forEach(meal => {
                 if (cnt < 1) {
                     macroState.update(meal.calories, meal.protein, meal.fat, meal.carbohydrates);
+                    mealView.updateMacroDisplay(macroState);
                 }
 
-                mealView.updateMacroDisplay(macroState);
                 cnt++;
             });
-
-            macroState.reset();
         } catch (error) {
             helpers.showError('Error fetching meals');
         }
