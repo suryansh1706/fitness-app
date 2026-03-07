@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+  </head>
+  <body>
+    <h2>Basic Details</h2>
+    <form>
+      <input type="text" id="age" placeholder="Age" required />
+      <br>
+      <input type="text" id="gender" placeholder="Gender" required />
+      <br>
+      <input type="text" id="height" placeholder="Height (cm)" required />
+      <br>
+      <input type="text" id="weight" placeholder="Weight (kg)" required />
+      <br>
+      <input type="text" id="activityLevel" placeholder="Activity Level (1-5)" required />
+      <br>      
+
+      <select name="goal" id="goal">
+        <option value="" disabled selected hidden>Choose your goal</option>
+        <option value="loseweight">Lose weight</option>
+        <option value="maintainweight">Maintain weight</option>
+        <option value="gainweight">Gain weight</option>
+      </select>
+
+        <button type="submit" id="save-profile">Save Profile</button>
+    </form>
+  </body>
+</html>
