@@ -26,6 +26,7 @@ app.use("/auth", authRoutes);
 app.use("/oauth", authRoutes);
 app.use("/meals", mealRoutes);
 app.use("/mail", mailRoutes);
+app.use("/user", userRoutes);
 
 // Basic health check route
 app.get('/', ensureAuth, (req, res) => {
