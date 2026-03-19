@@ -1,5 +1,2 @@
 1. right now using local storage which is leading to multiple accounts using same token from local storage
         when multiple tabs are opened, use session storage or cookies to fix this in future
-
-2. thinking of giving insights like most eaten meal, highest calorie meal, etc.
-3. user will be able to retreive directly the saved meal avoiding calculating for the same meal.
