@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!authController.isAuthenticated()) {
             window.location.href = '/Frontend/public/index.html';
         } else {
-            appController.loadUserProfile();
+            appController.saveUserProfile();
         }
     }
 });
