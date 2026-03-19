@@ -65,5 +65,17 @@ export const apiService = {
             }
         });
         return response.json();
+    },
+
+    async saveUserProfile(profileData, token) {
+        const response = await fetch(`${API_BASE_URL}/user/profile`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(profileData)
+        });
+        return response.json();
     }
 };
