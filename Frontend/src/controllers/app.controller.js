@@ -1,8 +1,9 @@
 // App controller - main app orchestration
-import { authController } from './auth.controller.js';
+import { userController } from './user.controller.js';
 import { mealController } from './meal.controller.js';
 import { dashboardView } from '../views/dashboard.view.js';
 import { mealView } from '../views/meal.view.js';
+import { profileView } from '../views/profile.view.js';
 
 export const appController = {
     initialize() {
@@ -39,6 +40,12 @@ export const appController = {
     setupDailyMacrosLoader() {
         dashboardView.loadDailyMacros(async () => {
             await mealController.handleDailyMacros();
+        });
+    },
+
+    saveUserProfile() {
+        profileView.attachSaveListener((profileData) => {
+            userController.handleSaveProfile(profileData);
         });
     }
 };
