@@ -1,5 +1,6 @@
 import { apiService } from '../services/api.service.js';
 import { authController } from './auth.controller.js';
+import { helpers } from '../utils/helpers.js';
 
 export const userController = {
     async handleSaveProfile(profileData) {
@@ -11,9 +12,8 @@ export const userController = {
         }
 
         try {
-            console.log("hi from user controller");
             const response = await apiService.saveUserProfile(profileData, token);
-            if (response.success) {
+            if (response.profile) {
                 helpers.showAlert('Profile saved successfully!');
             } else {
                 helpers.showError(`Failed to save profile: ${response.message}`);
