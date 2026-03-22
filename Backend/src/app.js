@@ -6,6 +6,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/auth.routes");
 const mealRoutes = require("./routes/meal.routes");
 const mailRoutes = require("./routes/mail.routes");
+const userRoutes = require("./routes/user.routes");
 const ensureAuth = require("./middlewares/auth.middleware");
 require("./config/passport");
 
