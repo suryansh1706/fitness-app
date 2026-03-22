@@ -16,7 +16,14 @@
       <br>
       <input type="text" id="weight" placeholder="Weight (kg)" required />
       <br>
-      <input type="text" id="activityLevel" placeholder="Activity Level (1-5)" required />
+      <select name="activityLevel" id="activityLevel">
+        <option value="" disabled selected hidden>Choose your activity level</option>
+        <option value="sedentary">Sedentary</option>
+        <option value="lightly active">Lightly Active</option>
+        <option value="moderately active">Moderately Active</option>
+        <option value="very active">Very Active</option>
+        <option value="extra active">Extra Active</option>
+      </select>
       <br>      
 
       <select name="goal" id="goal">
@@ -28,5 +35,7 @@
 
         <button type="submit" id="save-profile">Save Profile</button>
     </form>
+
+    <script type="module" src="../src/main.js"></script>
   </body>
 </html>
