@@ -19,6 +19,12 @@ const profileSchema = new mongoose.Schema({
         type: String,
         enum: ["sedentary", "lightly active", "moderately active", "very active", "extra active"],
         required: true
+    },
+
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 }, { timestamps: true });
 

@@ -1,9 +1,15 @@
 const Profile = require('../models/profile.model');
 
-const saveProfile = async (profileData) => {
+const saveProfile = async (userId, profileData) => {
     const { age, weight, height, activityLevel } = profileData;
 
-    const profile = new Profile({ age, weight, height, activityLevel });
+    const profile = new Profile({
+        age,
+        weight,
+        height, 
+        activityLevel,
+        createdBy: userId
+    });
     await profile.save();
     return profile;
 };
