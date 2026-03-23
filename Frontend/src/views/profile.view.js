@@ -29,12 +29,7 @@ export const profileView = {
     },
 
     resetForm() {
-        this.elements.age.value = '';
-        this.elements.gender.value = '';
-        this.elements.weight.value = '';
-        this.elements.height.value = '';
-        this.elements.activityLevel.value = '';
-        this.elements.goal.value = '';
+        this.elements.form.reset();
     },
 
     attachSaveListener(callback) {
