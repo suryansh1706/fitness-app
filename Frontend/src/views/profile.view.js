@@ -1,5 +1,6 @@
 export const profileView = {
     elements: {
+        form: document.querySelector('form'),
         age: document.querySelector('#age'),
         gender: document.querySelector('#gender'),
         weight: document.querySelector('#weight'),
@@ -27,8 +28,17 @@ export const profileView = {
         }
     },
 
+    resetForm() {
+        this.elements.age.value = '';
+        this.elements.gender.value = '';
+        this.elements.weight.value = '';
+        this.elements.height.value = '';
+        this.elements.activityLevel.value = '';
+        this.elements.goal.value = '';
+    },
+
     attachSaveListener(callback) {
-        this.elements.saveButton.addEventListener('click', (event) => {
+        this.elements.form.addEventListener('submit', (event) => {
             event.preventDefault();
             callback(this.getProfileData());
         });

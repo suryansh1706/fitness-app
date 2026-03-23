@@ -18,7 +18,7 @@ export const userController = {
             if (response.profile) {
                 const maintenanceCalories = calculateMaintenanceCalories(profileData);
                 profileView.displayMaintenanceCalories(maintenanceCalories);
-
+                profileView.resetForm();
                 helpers.showAlert('Profile saved successfully!');
             } else {
                 helpers.showError(`Failed to save profile: ${response.message}`);
