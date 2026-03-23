@@ -20,6 +20,13 @@ export const profileView = {
         };
     },
 
+    displayMaintenanceCalories(calories) {
+        const maintenanceElement = document.querySelector('#maintenance-calories');
+        if (maintenanceElement) {
+            maintenanceElement.textContent = `Your maintenance calories: ${calories} kcal/day`;
+        }
+    },
+
     attachSaveListener(callback) {
         this.elements.saveButton.addEventListener('click', (event) => {
             event.preventDefault();
