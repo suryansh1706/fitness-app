@@ -7,6 +7,7 @@ export const profileView = {
         activityLevel: document.querySelector('#activityLevel'),
         goal: document.querySelector('#goal'),
         saveButton: document.querySelector('#save-profile'),
+        maintenanceCalories: document.querySelector('#maintenance-calories')
     },
 
     getProfileData() {
@@ -21,9 +22,8 @@ export const profileView = {
     },
 
     displayMaintenanceCalories(calories) {
-        const maintenanceElement = document.querySelector('#maintenance-calories');
-        if (maintenanceElement) {
-            maintenanceElement.textContent = `Your maintenance calories: ${calories} kcal/day`;
+        if (this.elements.maintenanceCalories) {
+            this.elements.maintenanceCalories.textContent = `Your maintenance calories: ${calories} kcal/day`;
         }
     },
 
