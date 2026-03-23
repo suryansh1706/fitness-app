@@ -21,7 +21,8 @@ export const profileView = {
     },
 
     attachSaveListener(callback) {
-        this.elements.saveButton.addEventListener('click', () => {
+        this.elements.saveButton.addEventListener('click', (event) => {
+            event.preventDefault();
             callback(this.getProfileData());
         });
     }
