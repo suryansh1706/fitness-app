@@ -21,8 +21,11 @@ const fetchMeals = async (userId) => {
     return meals;
 };
 
-const searchMeal = async (query) => {
-    const meals = await Meal.find({ name: { $regex: query, $options: 'i' } });
+const searchMeal = async (query, userId) => {
+    const meals = await Meal.find({ 
+        name: { $regex: query, $options: 'i' },
+        createdBy: userId
+    });
     return meals;
 }
 
