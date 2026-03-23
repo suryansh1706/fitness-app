@@ -88,3 +88,25 @@ export const helpers = {
         window.location.href = url;
     }
 };
+
+export function calculateMaintenanceCalories(profile) {
+    // BMR calculation (Mifflin-St Jeor formula)
+    let bmr;
+    if (profile.gender.toLowerCase() === 'male') {
+        bmr = 10 * profile.weight + 6.25 * profile.height - 5 * profile.age + 5;
+    } else {
+        bmr = 10 * profile.weight + 6.25 * profile.height - 5 * profile.age - 161;
+    }
+    
+    // Apply activity multiplier
+    const activityMultipliers = {
+        'sedentary': 1.2,
+        'light': 1.375,
+        'moderate': 1.55,
+        'active': 1.725,
+        'veryActive': 1.9
+    };
+    
+    const multiplier = activityMultipliers[profile.activityLevel] || 1.2;
+    return bmr * multiplier;
+}
