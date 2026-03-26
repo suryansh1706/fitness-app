@@ -4,17 +4,14 @@ const API_BASE_URL = 'http://localhost:5000';
 export const apiService = {
     // Auth endpoints
     async login(email, password) {
-        console.log('🔍 Login request started:', { email });
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
             body: JSON.stringify({ email, password })
         });
-        console.log('📡 Login response status:', response.status);
-        console.log('📡 Login response headers:', response.headers);
+        
         const data = await response.json();
-        console.log('📡 Login response body:', data);
         return data;
     },
 

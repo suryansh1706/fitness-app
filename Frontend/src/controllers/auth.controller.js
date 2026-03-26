@@ -28,7 +28,6 @@ export const authController = {
             
             if (response.message === "User registered successfully") {
                 helpers.showAlert('Signup successful! Please check your email for verification.');
-                // helpers.redirectTo('http://127.0.0.1:5500/Frontend/public/login.html');
             } else {
                 helpers.showError(`Signup failed: ${response.message}`);
             }
