@@ -13,16 +13,16 @@ require("./config/passport");
 
 const app = express();
 
+// CORS configuration (must come first)
+app.use(cors({
+  origin: "http://localhost:5500",
+  credentials: true,
+}));
+
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
-
-// CORS configuration
-app.use(cors({
-  origin: "http://127.0.0.1:5500",
-  credentials: true,
-}));
 
 // Routes
 app.use("/auth", authRoutes);
