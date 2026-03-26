@@ -6,7 +6,6 @@ import { mealView } from '../views/meal.view.js';
 import { dashboardView } from '../views/dashboard.view.js';
 import { ingredients, helpers } from '../utils/helpers.js';
 import { calculateMacros } from '../utils/macros.js';
-import { authController } from './auth.controller.js';
 
 export const mealController = {
     async handleAddIngredient(inputs) {
@@ -41,12 +40,6 @@ export const mealController = {
             return;
         }
 
-        const token = authController.getToken();
-        if (!token) {
-            helpers.showError('Not authenticated');
-            return;
-        }
-
         const mealData = {
             name: mealName,
             calories: macroState.calories,
@@ -56,7 +49,7 @@ export const mealController = {
         };
 
         try {
-            const response = await apiService.saveMeal(mealData, token);
+            const response = await apiService.saveMeal(mealData);
             
             if (response.meal) {
                 helpers.showAlert('Meal saved successfully!');
@@ -72,14 +65,8 @@ export const mealController = {
     },
 
     async handleFetchMeals() {
-        const token = authController.getToken();
-        if (!token) {
-            helpers.showError('Not authenticated');
-            return;
-        }
-
         try {
-            const data = await apiService.fetchMeals(token);
+            const data = await apiService.fetchMeals();
             mealModel.setMeals(data.meals || []);
             mealView.displayMeals(mealModel.getMeals());
         } catch (error) {
@@ -88,14 +75,8 @@ export const mealController = {
     },
 
     async handleDailyMacros() {
-        const token = authController.getToken();
-        if (!token) {
-            helpers.showError('Not authenticated');
-            return;
-        }
-
         try {
-            const data = await apiService.getDailyMacros(token);
+            const data = await apiService.getDailyMacros();
             dashboardView.updateDailyMacros(data);
         } catch (error) {
             helpers.showError('Error fetching daily macros');
@@ -103,12 +84,6 @@ export const mealController = {
     },
 
     async handleSearchMeals(input) {
-        const token = authController.getToken();
-        if (!token) {
-            helpers.showError('Not authenticated');
-            return;
-        }
-
         macroState.reset();
         const query = input.value.trim().toLowerCase();
         if (!query) {
@@ -117,7 +92,7 @@ export const mealController = {
         }
 
         try {
-            const data = await apiService.searchMeal(query, token);
+            const data = await apiService.searchMeal(query);
             if (data.meals.length === 0) {
                 helpers.showAlert('No meals found with that name');
                 mealView.resetMealInputs();

@@ -1,20 +1,12 @@
 import { apiService } from '../services/api.service.js';
-import { authController } from './auth.controller.js';
 import { helpers } from '../utils/helpers.js';
 import { calculateMaintenanceCalories } from '../utils/helpers.js';
 import { profileView } from '../views/profile.view.js';
 
 export const userController = {
     async handleSaveProfile(profileData) {
-        const token = authController.getToken();
-
-        if (!token) {
-            helpers.showError('Not authenticated');
-            return;
-        }
-
         try {
-            const response = await apiService.saveUserProfile(profileData, token);
+            const response = await apiService.saveUserProfile(profileData);
             if (response.profile) {
                 const maintenanceCalories = calculateMaintenanceCalories(profileData);
                 profileView.displayMaintenanceCalories(maintenanceCalories);

@@ -22,58 +22,48 @@ export const apiService = {
     },
 
     // Meal endpoints
-    async saveMeal(mealData, token) {
+    async saveMeal(mealData) {
         const response = await fetch(`${API_BASE_URL}/meals/save`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify(mealData)
         });
         return response.json();
     },
 
-    async fetchMeals(token) {
+    async fetchMeals() {
         const response = await fetch(`${API_BASE_URL}/meals/fetch`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
         });
         return response.json();
     },
 
-    async getDailyMacros(token) {
+    async getDailyMacros() {
         const response = await fetch(`${API_BASE_URL}/meals/daily`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
         });
         return response.json();
     },
 
-    async searchMeal(query, token) {
+    async searchMeal(query) {
         const response = await fetch(`${API_BASE_URL}/meals/search?query=${encodeURIComponent(query)}`, {
             method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
         });
         return response.json();
     },
 
-    async saveUserProfile(profileData, token) {
+    async saveUserProfile(profileData) {
         const response = await fetch(`${API_BASE_URL}/user/profile`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify(profileData)
         });
         return response.json();

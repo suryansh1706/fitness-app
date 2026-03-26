@@ -1,6 +1,5 @@
 // Auth controller - handles authentication logic
 import { apiService } from '../services/api.service.js';
-import { authModel } from '../models/auth.model.js';
 import { helpers } from '../utils/helpers.js';
 
 export const authController = {
@@ -9,7 +8,6 @@ export const authController = {
             const response = await apiService.login(credentials.email, credentials.password);
             
             if (response.jwtToken) {
-                authModel.setToken(response.jwtToken);
                 helpers.showAlert('Login successful!');
                 helpers.redirectTo('http://127.0.0.1:5500/Frontend/public/dashboard.html');
             } else {
@@ -37,13 +35,5 @@ export const authController = {
         } catch (error) {
             helpers.showError('An error occurred during signup');
         }
-    },
-
-    isAuthenticated() {
-        return authModel.isAuthenticated();
-    },
-
-    getToken() {
-        return authModel.getToken();
     },
 };

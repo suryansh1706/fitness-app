@@ -66,19 +66,6 @@
         <a href="profile.html">Go to Profile</a>
     </div>
 
-    <!-- saving the token to localStorage for authenticated API calls -->
-    <!-- mainly for oauth, not sending the token for local login/signup in the link -->
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get("token");
-
-        if (token) {
-            localStorage.setItem("token", token);
-
-            // Remove token from URL after storing (important)
-            window.history.replaceState({}, document.title, "dashboard.html");
-        }
-    </script>
     <script type="module" src="../src/main.js"></script>
 </body>
 </html>

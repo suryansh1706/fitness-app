@@ -27,7 +27,12 @@ router.get(
       { expiresIn: "7d" }
     );
 
-    res.redirect(`http://127.0.0.1:5500/Frontend/public/dashboard.html?token=${jwtToken}`);
+    res.cookie("jwtToken", jwtToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+    });
+    res.redirect("http://127.0.0.1:5500/Frontend/public/dashboard.html");
   }
 );
 
