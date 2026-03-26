@@ -2,14 +2,15 @@ const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-const { signupController, loginController } = require("../controllers/auth.controller");
+const { signupController, loginController, verifyTokenController, verifyController } = require("../controllers/auth.controller");
 const { signupValidation, loginValidation } = require("../middlewares/validation.middleware");
-const { verifyTokenController } = require("../controllers/auth.controller");
+const ensureAuth = require("../middlewares/auth.middleware");
 
 // Local Authentication Routes
 router.post("/login", loginValidation, loginController);
 router.post("/signup", signupValidation, signupController);
 router.get("/verify-email", verifyTokenController);
+router.get("/verify", ensureAuth, verifyController);
 
 // OAuth Routes (Google)
 router.get(
@@ -29,10 +30,11 @@ router.get(
 
     res.cookie("jwtToken", jwtToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "Strict",
+      path: "/"
     });
-    res.redirect("http://127.0.0.1:5500/Frontend/public/dashboard.html");
+    res.redirect("http://localhost:5500/Frontend/public/dashboard.html");
   }
 );
 

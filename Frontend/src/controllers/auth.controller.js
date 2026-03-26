@@ -9,7 +9,7 @@ export const authController = {
             
             if (response.jwtToken) {
                 helpers.showAlert('Login successful!');
-                helpers.redirectTo('http://127.0.0.1:5500/Frontend/public/dashboard.html');
+                helpers.redirectTo('http://localhost:5500/Frontend/public/dashboard.html');
             } else {
                 helpers.showError(`Login failed: ${response.message}`);
             }

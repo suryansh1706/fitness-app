@@ -4,18 +4,25 @@ const API_BASE_URL = 'http://localhost:5000';
 export const apiService = {
     // Auth endpoints
     async login(email, password) {
+        console.log('🔍 Login request started:', { email });
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ email, password })
         });
-        return response.json();
+        console.log('📡 Login response status:', response.status);
+        console.log('📡 Login response headers:', response.headers);
+        const data = await response.json();
+        console.log('📡 Login response body:', data);
+        return data;
     },
 
     async signup(username, email, password) {
         const response = await fetch(`${API_BASE_URL}/auth/signup`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
             body: JSON.stringify({ username, email, password })
         });
         return response.json();
@@ -30,6 +37,18 @@ export const apiService = {
             body: JSON.stringify(mealData)
         });
         return response.json();
+    },
+
+    // Helper function to verify authentication
+    async verifyAuthentication() {
+        try {
+            const response = await fetch('http://localhost:5000/auth/verify', {
+                credentials: 'include'
+            });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
     },
 
     async fetchMeals() {

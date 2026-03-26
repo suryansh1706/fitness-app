@@ -17,11 +17,13 @@ const loginController = async (req, res) => {
         const result = await login(email, password);
         res.cookie('jwtToken', result.jwtToken, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'Strict'
+            secure: false,
+            sameSite: 'Strict',
+            path: '/'
         });
         res.status(200).json(result);
     } catch (err) {
+        console.log('❌ Login error:', err.message);
         res.status(400).json({ message: err.message });
     }
 };
@@ -29,10 +31,14 @@ const loginController = async (req, res) => {
 const verifyTokenController = async (req, res) => {
     try {
       await verifyEmailToken(req.query.token);
-      return res.redirect("http://127.0.0.1:5500/Frontend/public/login.html"); 
+      return res.redirect("http://localhost:5500/Frontend/public/login.html"); 
    } catch (error) {
-      return res.redirect("http://127.0.0.1:5500/Frontend/public/error.html");
+      return res.redirect("http://localhost:5500/Frontend/public/error.html");
     }
 };
 
-module.exports = { signupController, loginController, verifyTokenController };
+const verifyController = (req, res) => {
+    res.status(200).json({ authenticated: true });
+};
+
+module.exports = { signupController, loginController, verifyTokenController, verifyController };
