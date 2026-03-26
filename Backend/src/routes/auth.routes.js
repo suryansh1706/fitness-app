@@ -23,7 +23,7 @@ router.get(
   passport.authenticate("google", { session: false }),
   (req, res) => {
     const jwtToken = jwt.sign(
-      { id: req.user._id },
+      { email: req.user.email, _id: req.user._id },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
@@ -31,7 +31,7 @@ router.get(
     res.cookie("jwtToken", jwtToken, {
       httpOnly: true,
       secure: false,
-      sameSite: "Strict",
+      sameSite: "Lax",
       path: "/"
     });
     res.redirect("http://localhost:5500/Frontend/public/dashboard.html");

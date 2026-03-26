@@ -18,12 +18,11 @@ const loginController = async (req, res) => {
         res.cookie('jwtToken', result.jwtToken, {
             httpOnly: true,
             secure: false,
-            sameSite: 'Strict',
+            sameSite: 'Lax',
             path: '/'
         });
         res.status(200).json(result);
     } catch (err) {
-        console.log('❌ Login error:', err.message);
         res.status(400).json({ message: err.message });
     }
 };
