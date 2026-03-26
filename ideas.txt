@@ -1,2 +1,0 @@
-1. right now using local storage which is leading to multiple accounts using same token from local storage
-        when multiple tabs are opened, use session storage or cookies to fix this in future
