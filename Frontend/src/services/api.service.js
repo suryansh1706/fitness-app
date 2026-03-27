@@ -39,7 +39,7 @@ export const apiService = {
     // Helper function to verify authentication
     async verifyAuthentication() {
         try {
-            const response = await fetch('http://localhost:5000/auth/verify', {
+            const response = await fetch(`${API_BASE_URL}/auth/verify`, {
                 credentials: 'include'
             });
             return response.ok;

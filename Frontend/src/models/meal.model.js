@@ -9,4 +9,8 @@ export const mealModel = {
     getMeals() {
         return this.meals;
     },
+
+    clear() {
+        this.meals = [];
+    }
 };
