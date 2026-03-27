@@ -32,9 +32,9 @@ const loginController = async (req, res) => {
 const verifyTokenController = async (req, res) => {
   try {
     await verifyToken(req.query.token);
-    return res.redirect("http://127.0.0.1:5500/Frontend/public/login.html");
+    return res.redirect("http://localhost:5500/Frontend/public/login.html");
   } catch (error) {
-    return res.redirect("http://127.0.0.1:5500/Frontend/public/error.html");
+    return res.redirect("http://localhost:5500/Frontend/public/error.html");
   }
 };
 

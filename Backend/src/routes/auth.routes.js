@@ -43,7 +43,7 @@ router.get(
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    res.redirect("http://127.0.0.1:5500/Frontend/public/dashboard.html");
+    res.redirect("http://localhost:5500/Frontend/public/dashboard.html");
   },
 );
 
