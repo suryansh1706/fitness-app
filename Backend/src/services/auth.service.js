@@ -58,7 +58,7 @@ const login = async (email, password) => {
     };
 };
 
-const verifyToken = async (verificationToken) => {
+const verifyEmailToken = async (verificationToken) => {
     const user = await User.findOne({ verificationToken, verificationExpires: { $gt: Date.now() } });
     if (!user) {
         throw new Error("Invalid or expired token");
@@ -69,4 +69,4 @@ const verifyToken = async (verificationToken) => {
     await user.save();
 };
 
-module.exports = { signup, login, verifyToken };
+module.exports = { signup, login, verifyEmailToken };

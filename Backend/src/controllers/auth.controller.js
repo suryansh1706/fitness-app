@@ -1,4 +1,4 @@
-const { signup, login, verifyToken } = require('../services/auth.service');
+const { signup, login, verifyEmailToken } = require('../services/auth.service');
 
 const signupController = async (req, res) => {
     try {
