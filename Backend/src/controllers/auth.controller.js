@@ -18,7 +18,7 @@ const loginController = async (req, res) => {
         res.cookie('jwtToken', result.jwtToken, {
             httpOnly: true,
             secure: false,
-            sameSite: 'Lax',
+            sameSite: 'none',
             path: '/'
         });
         res.status(200).json(result);

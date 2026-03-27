@@ -31,7 +31,7 @@ router.get(
     res.cookie("jwtToken", jwtToken, {
       httpOnly: true,
       secure: false,
-      sameSite: "Lax",
+      sameSite: "none",
       path: "/"
     });
     res.redirect("http://127.0.0.1:5500/Frontend/public/dashboard.html");

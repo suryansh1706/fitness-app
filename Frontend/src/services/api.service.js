@@ -41,8 +41,8 @@ export const apiService = {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/verify`, {
                 method: 'GET',
+                credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
-                credentials: 'include'
             });
             return response.ok;
         } catch (error) {
