@@ -1,4 +1,4 @@
-const { signup, login, verifyEmailToken } = require('../services/auth.service');
+const { signup, login, verifyToken } = require('../services/auth.service');
 
 const signupController = async (req, res) => {
     try {
@@ -29,7 +29,7 @@ const loginController = async (req, res) => {
 
 const verifyTokenController = async (req, res) => {
     try {
-      await verifyEmailToken(req.query.token);
+      await verifyToken(req.query.token);
       return res.redirect("http://127.0.0.1:5500/Frontend/public/login.html"); 
    } catch (error) {
       return res.redirect("http://127.0.0.1:5500/Frontend/public/error.html");
