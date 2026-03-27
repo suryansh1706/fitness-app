@@ -15,7 +15,7 @@ const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await login(email, password);
-      
+
     res.cookie("jwtToken", result.jwtToken, {
       httpOnly: true,
       secure: false,
@@ -31,7 +31,7 @@ const loginController = async (req, res) => {
 
 const verifyTokenController = async (req, res) => {
   try {
-    await verifyToken(req.query.token);
+    await verifyEmailToken(req.query.token);
     return res.redirect("http://localhost:5500/Frontend/public/login.html");
   } catch (error) {
     return res.redirect("http://localhost:5500/Frontend/public/error.html");
