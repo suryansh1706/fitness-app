@@ -8,14 +8,14 @@ export const authController = {
     async handleLogin(credentials) {
         try {
             const response = await apiService.login(credentials.email, credentials.password);
-            // console.log('Login response:', response);
+            
             if (response.jwtToken) {
                 // Clear all previous user data before switching accounts
                 mealModel.clear();
                 macroState.reset();
                 
                 helpers.showAlert('Login successful!');
-                helpers.redirectTo("http://127.0.0.1:5500/Frontend/public/dashboard.html");
+                helpers.redirectTo('http://127.0.0.1:5500/Frontend/public/dashboard.html');
             } else {
                 helpers.showError(`Login failed: ${response.message}`);
             }
