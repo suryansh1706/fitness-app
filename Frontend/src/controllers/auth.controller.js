@@ -8,7 +8,7 @@ export const authController = {
     async handleLogin(credentials) {
         try {
             const response = await apiService.login(credentials.email, credentials.password);
-            
+            // console.log('Login response:', response);
             if (response.jwtToken) {
                 // Clear all previous user data before switching accounts
                 mealModel.clear();
