@@ -15,6 +15,10 @@ export const dashboardView = {
     },
 
     loadDailyMacros(callback) {
-        window.addEventListener('load', callback);
+        // Execute immediately if DOM is ready, otherwise wait for load event
+        if (document.readyState === 'interactive' ||
+            document.readyState === 'complete') {
+            callback();
+        }
     }
 };

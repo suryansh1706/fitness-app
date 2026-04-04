@@ -56,6 +56,7 @@ export const mealController = {
                 macroState.reset();
                 mealView.updateMacroDisplay(macroState);
                 mealView.resetMealInputs();
+                await this.handleDailyMacros(); // Refresh daily macros on dashboard
             } else {
                 helpers.showError(`Failed to save meal: ${response.message}`);
             }
@@ -69,6 +70,7 @@ export const mealController = {
             const data = await apiService.fetchMeals();
             mealModel.setMeals(data.meals || []);
             mealView.displayMeals(mealModel.getMeals());
+            await this.handleDailyMacros(); // Update daily macros on dashboard
         } catch (error) {
             helpers.showError('Error fetching meals');
         }
