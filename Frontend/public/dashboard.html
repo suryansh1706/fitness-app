@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Meal Tracker Dashboard</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="dashboard-container">
@@ -55,11 +56,9 @@
 
         <div class="daily-macros">
             <h2>Today's Macros</h2>
+            <canvas id="dailyMacrosChart" width="400" height="400"></canvas>
             <p>
                 Calories: <span id="caloriestoday">0</span> kcal<br />
-                Protein: <span id="proteintoday">0</span>g<br />
-                Fat: <span id="fattoday">0</span>g<br />
-                Carbohydrates: <span id="carbohydratestoday">0</span>g
             </p>
         </div>
 

@@ -2,16 +2,47 @@
 export const dashboardView = {
     elements: {
         caloriesToday: document.querySelector('#caloriestoday'),
-        proteinToday: document.querySelector('#proteintoday'),
-        fatToday: document.querySelector('#fattoday'),
-        carbohydratesToday: document.querySelector('#carbohydratestoday')
+        dailyMacrosChart: document.querySelector('#dailyMacrosChart')
     },
 
     updateDailyMacros(macros) {
         this.elements.caloriesToday.textContent = macros.calories;
-        this.elements.proteinToday.textContent = macros.protein;
-        this.elements.fatToday.textContent = macros.fat;
-        this.elements.carbohydratesToday.textContent = macros.carbohydrates;
+        this.renderMacrosChart(macros);
+    },
+
+    renderMacrosChart(macros) {
+        const ctx = this.elements.dailyMacrosChart.getContext('2d');
+        
+        // Destroy existing chart if it exists
+        if (this.chart) {
+            this.chart.destroy();
+        }
+        
+        this.chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Protein', 'Fat', 'Carbohydrates'],
+                datasets: [{
+                    data: [macros.protein, macros.fat, macros.carbohydrates],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    borderColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Macronutrient Breakdown'
+                    }
+                }
+            }
+        });
     },
 
     loadDailyMacros(callback) {
