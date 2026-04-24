@@ -12,7 +12,7 @@ const mailSender = async (email, verificationToken) => {
     const verificationLink = `http://localhost:5000/auth/verify-email?token=${verificationToken}`;
 
     await transporter.sendMail({
-        from: `"Meal Tracker" <${process.env.EMAIL_USER}>`,
+        from: `"YourFitnessGuide" <${process.env.EMAIL_USER}>`,
         to: email,
         subject: "Verify your email",
         html: `<a href="${verificationLink}">Verify Email</a>`
