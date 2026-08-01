@@ -4,9 +4,10 @@ const { redisClient } = require('../config/redis');
 const MACROS_CACHE_TTL = 3600; // 1 hour
 
 const calculateDailyMacros = async (userId) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set to the start of the day
-    const todayStr = today.toISOString().split('T')[0];
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0); // 12:00 AM midnight local time
+
+    const todayStr = new Date().toLocaleDateString('en-CA'); // Local date YYYY-MM-DD
     const cacheKey = `macros:${userId}:${todayStr}`;
 
     // 1. Try reading from Redis cache first
@@ -21,10 +22,10 @@ const calculateDailyMacros = async (userId) => {
         console.error("Redis read error in calculateDailyMacros:", err.message);
     }
 
-    // 2. Fetch meals created today from MongoDB
+    // 2. Fetch meals created today (since 12 AM midnight) from MongoDB
     const meals = await Meal.find({
         createdBy: userId,
-        createdAt: { $gte: today }
+        createdAt: { $gte: startOfDay }
     });
 
     const dailyMacros = {

@@ -20,7 +20,7 @@ const saveMeal = async (userId, mealData) => {
     // Invalidate Redis caches for this user
     try {
         if (redisClient.isOpen) {
-            const todayStr = new Date().toISOString().split('T')[0];
+            const todayStr = new Date().toLocaleDateString('en-CA');
             await redisClient.del(`meals:${userId}`);
             await redisClient.del(`macros:${userId}:${todayStr}`);
         }
@@ -62,7 +62,7 @@ const fetchMeals = async (userId) => {
 };
 
 const searchMeal = async (query, userId) => {
-    const meals = await Meal.find({ 
+    const meals = await Meal.find({
         name: { $regex: query, $options: 'i' },
         createdBy: userId
     });
