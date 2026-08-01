@@ -1,18 +1,9 @@
 const { createClient } = require('redis');
-require('dotenv').config();
 
 const redisUrl = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 
 const redisClient = createClient({
   url: redisUrl,
-});
-
-redisClient.on('connect', () => {
-  console.log('Redis client connecting...');
-});
-
-redisClient.on('ready', () => {
-  console.log('Redis client connected and ready to use');
 });
 
 redisClient.on('error', (err) => {

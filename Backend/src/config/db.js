@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { connectRedis } = require('./redis');
-require('dotenv').config();
 
 const MONGODB_URL = process.env.MONGODB_URL;
 

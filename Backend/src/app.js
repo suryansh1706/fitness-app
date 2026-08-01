@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
-require("dotenv").config();
 
 const authRoutes = require("./routes/auth.routes");
 const mealRoutes = require("./routes/meal.routes");
