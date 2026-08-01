@@ -1,12 +1,30 @@
 const Meal = require('../models/meal.model');
+const { redisClient } = require('../config/redis');
+
+const MACROS_CACHE_TTL = 3600; // 1 hour
 
 const calculateDailyMacros = async (userId) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to the start of the day
+    const todayStr = today.toISOString().split('T')[0];
+    const cacheKey = `macros:${userId}:${todayStr}`;
 
+    // 1. Try reading from Redis cache first
+    try {
+        if (redisClient.isOpen) {
+            const cachedMacros = await redisClient.get(cacheKey);
+            if (cachedMacros) {
+                return JSON.parse(cachedMacros);
+            }
+        }
+    } catch (err) {
+        console.error("Redis read error in calculateDailyMacros:", err.message);
+    }
+
+    // 2. Fetch meals created today from MongoDB
     const meals = await Meal.find({
         createdBy: userId,
-        createdAt: { $gte: today } // Fetch meals created today
+        createdAt: { $gte: today }
     });
 
     const dailyMacros = {
@@ -23,7 +41,17 @@ const calculateDailyMacros = async (userId) => {
         dailyMacros.carbohydrates += meal.carbohydrates || 0;
     });
 
+    // 3. Store calculated macros in Redis
+    try {
+        if (redisClient.isOpen) {
+            await redisClient.setEx(cacheKey, MACROS_CACHE_TTL, JSON.stringify(dailyMacros));
+        }
+    } catch (err) {
+        console.error("Redis write error in calculateDailyMacros:", err.message);
+    }
+
     return dailyMacros;
 };
 
 module.exports = { calculateDailyMacros };
+
