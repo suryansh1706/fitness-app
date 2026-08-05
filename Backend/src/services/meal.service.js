@@ -21,6 +21,9 @@ const saveMeal = async (userId, mealData) => {
     try {
         if (redisClient.isOpen) {
             const todayStr = new Date().toLocaleDateString('en-CA');
+
+            // deleting cached meal and todayMacros after
+            // a new meal is added to ensure the cache reflects the latest data
             await redisClient.del(`meals:${userId}`);
             await redisClient.del(`macros:${userId}:${todayStr}`);
         }
