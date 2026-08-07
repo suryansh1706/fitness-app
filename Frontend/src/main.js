@@ -1,6 +1,7 @@
-// Main entry point for dashboard
+// Main entry point for application
 import { authController } from './controllers/auth.controller.js';
 import { appController } from './controllers/app.controller.js';
+import { workoutController } from './controllers/workout.controller.js';
 import { loginView } from './views/login.view.js';
 import { signupView } from './views/signup.view.js';
 import { apiService } from './services/api.service.js';
@@ -42,4 +43,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             appController.saveUserProfile();
         }
     }
+
+    // Check if on workouts page
+    if (currentPage.includes('workouts.html')) {
+        workoutController.init();
+    }
 });
+

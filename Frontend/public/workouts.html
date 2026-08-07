@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+<body>
+    <div class="workout-container">
+        <div class="header-section">
+            <h1>Workout Tracker</h1>
+        </div>
+
+        <form id="workoutForm" class="workout-form">
+            <h2>Log New Workout</h2>
+
+            <div class="form-group">
+                <label for="exerciseName">Exercise Name</label>
+                <input type="text" id="exerciseName" placeholder="e.g., Bench Press, Squats, Bicep Curls" required />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" step="0.5" min="0" placeholder="e.g., 60" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="reps">Reps</label>
+                    <input type="number" id="reps" min="1" placeholder="e.g., 10" required />
+                </div>
+            </div>
+
+            <button type="submit" id="addWorkoutBtn">Log Workout</button>
+        </form>
+
+        <div class="workout-list-section">
+            <div class="workout-list-header">
+                <h2>Workout History</h2>
+                <button id="clearAllBtn" class="btn-clear">Clear History</button>
+            </div>
+
+            <div id="workoutList" class="workout-cards">
+                <!-- Logged workouts will be rendered here dynamically -->
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">← Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script type="module" src="../src/main.js"></script>
+</body>
+
+</html>
