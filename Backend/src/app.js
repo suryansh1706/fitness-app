@@ -5,6 +5,7 @@ const passport = require("passport");
 
 const authRoutes = require("./routes/auth.routes");
 const mealRoutes = require("./routes/meal.routes");
+const workoutRoutes = require("./routes/workout.routes");
 const mailRoutes = require("./routes/mail.routes");
 const userRoutes = require("./routes/user.routes");
 const ensureAuth = require("./middlewares/auth.middleware");
@@ -27,6 +28,7 @@ app.use(passport.initialize());
 app.use("/auth", authRoutes);
 app.use("/oauth", authRoutes);
 app.use("/meals", mealRoutes);
+app.use("/workouts", workoutRoutes);
 app.use("/mail", mailRoutes);
 app.use("/user", userRoutes);
 

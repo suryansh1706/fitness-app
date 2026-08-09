@@ -1,7 +1,7 @@
 // Workout controller - handles workout logic and data management
 import { workoutView } from '../views/workout.view.js';
-
-const STORAGE_KEY = 'workout_tracker_logs';
+import { apiService } from '../services/api.service.js';
+import { helpers } from '../utils/helpers.js';
 
 export const workoutController = {
     init() {
@@ -9,62 +9,59 @@ export const workoutController = {
         this.attachListeners();
     },
 
-    getSavedWorkouts() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (!saved) return [];
-        const workouts = JSON.parse(saved);
-        let modified = false;
-        workouts.forEach((w, idx) => {
-            if (!w.id) {
-                w.id = Date.now() + idx;
-                modified = true;
-            }
-        });
-        if (modified) {
-            this.saveWorkouts(workouts);
+    async loadAndRender() {
+        try {
+            const data = await apiService.fetchWorkouts();
+            const workouts = data.workouts || [];
+            workoutView.renderWorkouts(workouts, (id) => this.handleDeleteWorkout(id));
+        } catch (error) {
+            console.error('Error fetching workouts:', error);
+            workoutView.renderWorkouts([], (id) => this.handleDeleteWorkout(id));
         }
-        return workouts;
     },
 
-    saveWorkouts(workouts) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(workouts));
-    },
-
-    loadAndRender() {
-        const workouts = this.getSavedWorkouts();
-        workoutView.renderWorkouts(workouts, (id) => this.handleDeleteWorkout(id));
-    },
-
-    handleAddWorkout(data) {
+    async handleAddWorkout(data) {
         const { exerciseName, weight, reps } = data;
-        if (!exerciseName || isNaN(weight) || isNaN(reps)) return;
+        if (!exerciseName || isNaN(weight) || isNaN(reps)) {
+            helpers.showAlert('Please fill in all fields with valid numbers');
+            return;
+        }
 
-        const newWorkout = {
-            id: Date.now(),
-            exerciseName,
-            weight,
-            reps,
-            date: new Date().toISOString()
-        };
-
-        const workouts = this.getSavedWorkouts();
-        workouts.unshift(newWorkout);
-        this.saveWorkouts(workouts);
-
-        workoutView.resetForm();
-        this.loadAndRender();
+        try {
+            const response = await apiService.saveWorkout({ exerciseName, weight, reps });
+            if (response.workout) {
+                workoutView.resetForm();
+                await this.loadAndRender();
+            } else {
+                helpers.showError(response.message || 'Failed to save workout');
+            }
+        } catch (error) {
+            helpers.showError('An error occurred while saving the workout');
+        }
     },
 
-    handleDeleteWorkout(id) {
-        let workouts = this.getSavedWorkouts();
-        workouts = workouts.filter(w => w.id !== id);
-        this.saveWorkouts(workouts);
-        this.loadAndRender();
+    async handleDeleteWorkout(id) {
+        try {
+            const response = await apiService.deleteWorkout(id);
+            if (response.id || response.message) {
+                await this.loadAndRender();
+            } else {
+                helpers.showError(response.message || 'Failed to delete workout');
+            }
+        } catch (error) {
+            helpers.showError('An error occurred while deleting the workout');
+        }
     },
 
-    handleClearAll() {
-        localStorage.removeItem(STORAGE_KEY);
-        this.loadAndRender();
+    async handleClearAll() {
+        try {
+            const response = await apiService.clearWorkouts();
+            if (response.message) {
+                await this.loadAndRender();
+            }
+        } catch (error) {
+            helpers.showError('An error occurred while clearing workouts');
+        }
     },
 
     attachListeners() {

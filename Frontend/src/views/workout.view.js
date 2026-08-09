@@ -64,7 +64,7 @@ export const workoutView = {
         const groupsMap = new Map();
 
         workouts.forEach((workout) => {
-            const { key, label } = getGroupInfo(workout.date);
+            const { key, label } = getGroupInfo(workout.date || workout.createdAt);
             if (!groupsMap.has(key)) {
                 groupsMap.set(key, { label, items: [] });
             }
@@ -86,6 +86,7 @@ export const workoutView = {
 
             group.items.forEach((workout) => {
                 const card = document.createElement('div');
+                const workoutId = workout._id || workout.id;
                 card.className = 'workout-card';
                 card.innerHTML = `
                     <div class="workout-info">
@@ -95,7 +96,7 @@ export const workoutView = {
                             <span>Reps: ${workout.reps}</span>
                         </div>
                     </div>
-                    <button class="btn-delete" data-id="${workout.id}">Delete</button>
+                    <button class="btn-delete" data-id="${workoutId}">Delete</button>
                 `;
                 setsListEl.appendChild(card);
             });
@@ -107,8 +108,7 @@ export const workoutView = {
         // Attach delete event listeners
         this.elements.workoutList.querySelectorAll('.btn-delete').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const idAttr = e.target.getAttribute('data-id');
-                const id = isNaN(Number(idAttr)) ? idAttr : Number(idAttr);
+                const id = e.target.getAttribute('data-id');
                 onDeleteHandler(id);
             });
         });

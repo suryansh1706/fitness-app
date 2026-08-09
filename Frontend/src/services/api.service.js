@@ -85,5 +85,43 @@ export const apiService = {
             body: JSON.stringify(profileData)
         });
         return response.json();
+    },
+
+    // Workout endpoints
+    async saveWorkout(workoutData) {
+        const response = await fetch(`${API_BASE_URL}/workouts/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(workoutData)
+        });
+        return response.json();
+    },
+
+    async fetchWorkouts() {
+        const response = await fetch(`${API_BASE_URL}/workouts/fetch`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+        return response.json();
+    },
+
+    async deleteWorkout(id) {
+        const response = await fetch(`${API_BASE_URL}/workouts/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+        return response.json();
+    },
+
+    async clearWorkouts() {
+        const response = await fetch(`${API_BASE_URL}/workouts/clear`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include'
+        });
+        return response.json();
     }
 };
