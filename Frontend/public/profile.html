@@ -3,44 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile</title>
+    <title>Profile - Your Fitness Guide</title>
     <link rel="stylesheet" href="../styles/style.css" />
   </head>
   <body>
-    <h2>Basic Details</h2>
-    <form>
-      <input type="text" id="age" placeholder="Age" required />
-      <br>
-      <input type="text" id="gender" placeholder="Gender" required />
-      <br>
-      <input type="text" id="height" placeholder="Height (cm)" required />
-      <br>
-      <input type="text" id="weight" placeholder="Weight (kg)" required />
-      <br>
-      <select name="activityLevel" id="activityLevel">
-        <option value="" disabled selected hidden>Choose your activity level</option>
-        <option value="sedentary">Sedentary</option>
-        <option value="lightly active">Lightly Active</option>
-        <option value="moderately active">Moderately Active</option>
-        <option value="very active">Very Active</option>
-        <option value="extra active">Extra Active</option>
-      </select>
-      <br>      
+    <div class="auth-container">
+      <h1>Basic Details</h1>
+      <p style="margin-bottom: 20px;">Update your personal profile metrics to calculate maintenance calories.</p>
+      
+      <form>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="text" id="age" placeholder="e.g. 25" required />
+        </div>
 
-      <select name="goal" id="goal">
-        <option value="" disabled selected hidden>Choose your goal</option>
-        <option value="loseweight">Lose weight</option>
-        <option value="maintainweight">Maintain weight</option>
-        <option value="gainweight">Gain weight</option>
-      </select>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <input type="text" id="gender" placeholder="Male / Female" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="height">Height (cm)</label>
+            <input type="text" id="height" placeholder="e.g. 175" required />
+          </div>
+          <div class="form-group">
+            <label for="weight">Weight (kg)</label>
+            <input type="text" id="weight" placeholder="e.g. 70" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="activityLevel">Activity Level</label>
+          <select name="activityLevel" id="activityLevel" required>
+            <option value="" disabled selected hidden>Choose your activity level</option>
+            <option value="sedentary">Sedentary</option>
+            <option value="lightly active">Lightly Active</option>
+            <option value="moderately active">Moderately Active</option>
+            <option value="very active">Very Active</option>
+            <option value="extra active">Extra Active</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="goal">Fitness Goal</label>
+          <select name="goal" id="goal" required>
+            <option value="" disabled selected hidden>Choose your goal</option>
+            <option value="loseweight">Lose weight</option>
+            <option value="maintainweight">Maintain weight</option>
+            <option value="gainweight">Gain weight</option>
+          </select>
+        </div>
 
         <button type="submit" id="save-profile">Save Profile</button>
-    </form>
+      </form>
 
-    <div id="maintenance-calories"></div>
+      <div id="maintenance-calories" style="margin-top: 20px;"></div>
 
-    <div style="max-width: 600px; margin: 20px auto; text-align: center;">
-      <a href="dashboard.html" class="nav-btn btn-profile">← Back to Dashboard</a>
+      <div style="margin-top: 20px; text-align: center;">
+        <a href="dashboard.html" class="nav-btn btn-profile">← Back to Dashboard</a>
+      </div>
     </div>
 
     <script type="module" src="../src/main.js"></script>
