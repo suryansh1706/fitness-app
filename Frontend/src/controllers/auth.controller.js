@@ -15,7 +15,7 @@ export const authController = {
                 macroState.reset();
 
                 helpers.showAlert('Login successful!');
-                helpers.redirectTo('http://localhost:5500/Frontend/public/dashboard.html');
+                helpers.redirectToPage('dashboard.html');
             } else {
                 helpers.showError(`Login failed: ${response.message}`);
             }

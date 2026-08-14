@@ -86,6 +86,21 @@ export const helpers = {
 
     redirectTo(url) {
         window.location.href = url;
+    },
+
+    getPageUrl(pageName) {
+        const pathname = window.location.pathname;
+        if (pathname.includes('/Frontend/public/')) {
+            return `/Frontend/public/${pageName}`;
+        }
+        if (pathname.includes('/public/')) {
+            return `/public/${pageName}`;
+        }
+        return `./${pageName}`;
+    },
+
+    redirectToPage(pageName) {
+        window.location.href = this.getPageUrl(pageName);
     }
 };
 

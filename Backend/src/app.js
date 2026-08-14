@@ -14,8 +14,19 @@ require("./config/passport");
 const app = express();
 
 // CORS configuration (must come first)
+const allowedOrigins = [
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+  process.env.FRONTEND_URL,
+].filter(Boolean);
+
 app.use(cors({
-  origin: ["http://localhost:5500", "http://127.0.0.1:5500"],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   credentials: true,
 }));
 
@@ -33,7 +44,7 @@ app.use("/mail", mailRoutes);
 app.use("/user", userRoutes);
 
 // Basic health check route
-app.get('/', ensureAuth, (req, res) => {
+app.get('/', (req, res) => {
   res.send('Server is running');
 });
 

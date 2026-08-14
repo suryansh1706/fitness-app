@@ -1,35 +1,51 @@
 // Centralized API service - all API calls in one place
 const API_BASE_URL = 'http://localhost:5000';
 
+function getHeaders() {
+    const headers = { 'Content-Type': 'application/json' };
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+    return headers;
+}
+
 export const apiService = {
     // Auth endpoints
     async login(email, password) {
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include',
             body: JSON.stringify({ email, password })
         });
 
         const data = await response.json();
+        if (data.jwtToken) {
+            localStorage.setItem('jwtToken', data.jwtToken);
+        }
         return data;
     },
 
     async signup(username, email, password) {
         const response = await fetch(`${API_BASE_URL}/auth/signup`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include',
             body: JSON.stringify({ username, email, password })
         });
-        return response.json();
+        const data = await response.json();
+        if (data.jwtToken) {
+            localStorage.setItem('jwtToken', data.jwtToken);
+        }
+        return data;
     },
 
     // Meal endpoints
     async saveMeal(mealData) {
         const response = await fetch(`${API_BASE_URL}/meals/save`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include',
             body: JSON.stringify(mealData)
         });
@@ -42,7 +58,7 @@ export const apiService = {
             const response = await fetch(`${API_BASE_URL}/auth/verify`, {
                 method: 'GET',
                 credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
+                headers: getHeaders(),
             });
             return response.ok;
         } catch (error) {
@@ -53,7 +69,7 @@ export const apiService = {
     async fetchMeals() {
         const response = await fetch(`${API_BASE_URL}/meals/fetch`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();
@@ -62,7 +78,7 @@ export const apiService = {
     async getDailyMacros() {
         const response = await fetch(`${API_BASE_URL}/meals/daily`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();
@@ -71,7 +87,7 @@ export const apiService = {
     async searchMeal(query) {
         const response = await fetch(`${API_BASE_URL}/meals/search?query=${encodeURIComponent(query)}`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();
@@ -80,7 +96,7 @@ export const apiService = {
     async saveUserProfile(profileData) {
         const response = await fetch(`${API_BASE_URL}/user/profile`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include',
             body: JSON.stringify(profileData)
         });
@@ -91,7 +107,7 @@ export const apiService = {
     async saveWorkout(workoutData) {
         const response = await fetch(`${API_BASE_URL}/workouts/save`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include',
             body: JSON.stringify(workoutData)
         });
@@ -101,7 +117,7 @@ export const apiService = {
     async fetchWorkouts() {
         const response = await fetch(`${API_BASE_URL}/workouts/fetch`, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();
@@ -110,7 +126,7 @@ export const apiService = {
     async deleteWorkout(id) {
         const response = await fetch(`${API_BASE_URL}/workouts/${id}`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();
@@ -119,7 +135,7 @@ export const apiService = {
     async clearWorkouts() {
         const response = await fetch(`${API_BASE_URL}/workouts/clear`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            headers: getHeaders(),
             credentials: 'include'
         });
         return response.json();

@@ -9,7 +9,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailSender = async (email, verificationToken) => {
-    const verificationLink = `http://localhost:5000/auth/verify-email?token=${verificationToken}`;
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:5000";
+    const verificationLink = `${backendUrl}/auth/verify-email?token=${verificationToken}`;
 
     await transporter.sendMail({
         from: `"YourFitnessGuide" <${process.env.EMAIL_USER}>`,

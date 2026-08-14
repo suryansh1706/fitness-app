@@ -16,10 +16,11 @@ const loginController = async (req, res) => {
     const { email, password } = req.body;
     const result = await login(email, password);
 
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("jwtToken", result.jwtToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
@@ -30,11 +31,12 @@ const loginController = async (req, res) => {
 };
 
 const verifyTokenController = async (req, res) => {
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
   try {
     await verifyEmailToken(req.query.token);
-    return res.redirect("http://localhost:5500/Frontend/public/login.html");
+    return res.redirect(`${frontendUrl}/Frontend/public/login.html`);
   } catch (error) {
-    return res.redirect("http://localhost:5500/Frontend/public/error.html");
+    return res.redirect(`${frontendUrl}/Frontend/public/error.html`);
   }
 };
 

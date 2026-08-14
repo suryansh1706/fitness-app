@@ -36,14 +36,17 @@ router.get(
       { expiresIn: "7d" },
     );
 
+    const isProduction = process.env.NODE_ENV === "production";
     res.cookie("jwtToken", jwtToken, {
       httpOnly: true,
-      secure: true,
-      sameSite: "strict",
+      secure: isProduction,
+      sameSite: "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    res.redirect("http://localhost:5500/Frontend/public/dashboard.html");
+
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
+    res.redirect(`${frontendUrl}/Frontend/public/dashboard.html?token=${jwtToken}`);
   },
 );
 
