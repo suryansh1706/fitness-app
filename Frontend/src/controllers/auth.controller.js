@@ -8,12 +8,12 @@ export const authController = {
     async handleLogin(credentials) {
         try {
             const response = await apiService.login(credentials.email, credentials.password);
-            
+
             if (response.jwtToken) {
                 // Clear all previous user data before switching accounts
                 mealModel.clear();
                 macroState.reset();
-                
+
                 helpers.showAlert('Login successful!');
                 helpers.redirectTo('http://localhost:5500/Frontend/public/dashboard.html');
             } else {
@@ -31,7 +31,7 @@ export const authController = {
                 credentials.email,
                 credentials.password
             );
-            
+
             if (response.message === "User registered successfully") {
                 helpers.showAlert('Signup successful! Please check your email for verification.');
             } else {

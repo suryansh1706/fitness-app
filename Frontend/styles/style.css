@@ -102,7 +102,73 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Navigation */
+/* Navigation Header & Buttons */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f2f5;
+}
+
+.header-title h1 {
+    margin-bottom: 4px;
+}
+
+.header-title p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.header-nav-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-btn:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+.btn-workout {
+    background-color: #3b82f6;
+    color: #ffffff;
+}
+
+.btn-workout:hover {
+    background-color: #2563eb;
+}
+
+.btn-profile {
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-profile:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
 nav {
     display: flex;
     flex-direction: column;

@@ -9,9 +9,17 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <h1>Welcome to the Meal Tracker</h1>
-        <p>Track your meals and stay healthy!</p>
-        
+        <div class="dashboard-header">
+            <div class="header-title">
+                <h1>Welcome to the Meal Tracker</h1>
+                <p>Track your meals and stay healthy!</p>
+            </div>
+            <div class="header-nav-buttons">
+                <a href="workouts.html" class="nav-btn btn-workout">Workout Log</a>
+                <a href="profile.html" class="nav-btn btn-profile">Profile</a>
+            </div>
+        </div>
+
         <input type="text" id="mealName" name="mealName" placeholder="Search among saved meals" />
         <button id="searchMeal">Search</button>
 
@@ -61,8 +69,6 @@
                 Calories: <span id="caloriestoday">0</span> kcal<br />
             </p>
         </div>
-
-        <a href="profile.html">Go to Profile</a>
     </div>
 
     <script type="module" src="../src/main.js"></script>
