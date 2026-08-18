@@ -10,7 +10,7 @@ const saveProfileController = async (req, res) => {
     }
     catch (error) {
         console.error("Error creating profile:", error);
-        res.status(500).json({ message: error.message || "An error occurred while creating the profile" });
+        res.status(500).json({ message: error.message });
     }
 };
 

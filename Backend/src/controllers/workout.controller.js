@@ -18,7 +18,7 @@ const saveWorkoutController = async (req, res) => {
         res.status(201).json({ message: "Workout saved successfully", workout });
     } catch (error) {
         console.error("Error saving workout:", error);
-        res.status(500).json({ message: error.message || "An error occurred while saving workout" });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -29,7 +29,7 @@ const fetchWorkoutsController = async (req, res) => {
         res.status(200).json({ workouts });
     } catch (error) {
         console.error("Error fetching workouts:", error);
-        res.status(500).json({ message: error.message || "An error occurred while fetching workouts" });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -46,7 +46,7 @@ const deleteWorkoutController = async (req, res) => {
         res.status(200).json({ message: "Workout deleted successfully", id: workoutId });
     } catch (error) {
         console.error("Error deleting workout:", error);
-        res.status(500).json({ message: error.message || "An error occurred while deleting workout" });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -57,7 +57,7 @@ const clearWorkoutsController = async (req, res) => {
         res.status(200).json({ message: "All workouts cleared successfully" });
     } catch (error) {
         console.error("Error clearing workouts:", error);
-        res.status(500).json({ message: error.message || "An error occurred while clearing workouts" });
+        res.status(500).json({ message: error.message });
     }
 };
 

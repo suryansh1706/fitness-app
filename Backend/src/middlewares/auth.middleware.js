@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
   }
 
   if (!jwtToken) {
-    console.log('❌ No token found in cookies or authorization header');
+    console.log('No token found in cookies or authorization header');
     return res.status(401).json({ message: "No token" });
   }
 
