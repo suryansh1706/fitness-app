@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const crypto = require('crypto');
 const { mailController } = require('../controllers/mail.controller');
+const { redisClient } = require('../config/redis');
 
 const signup = async (username, email, password) => {
     const user = await User.findOne({ email });
@@ -43,7 +44,7 @@ const login = async (email, password) => {
     if (!user.isVerified) {
         throw new Error("Email not verified");
     }
-    
+
     const jwtToken = jwt.sign(
         { email: user.email, _id: user._id },
         process.env.JWT_SECRET,
@@ -58,6 +59,29 @@ const login = async (email, password) => {
     };
 };
 
+const logout = async (jwtToken) => {
+    if (!jwtToken) return;
+
+    try {
+        if (redisClient.isOpen) {
+            const decoded = jwt.decode(jwtToken);
+            let ttl = 7 * 24 * 60 * 60; // Default 7 days in seconds
+
+            if (decoded && decoded.exp) {
+                const nowInSeconds = Math.floor(Date.now() / 1000);
+                const remaining = decoded.exp - nowInSeconds;
+                if (remaining > 0) {
+                    ttl = remaining;
+                }
+            }
+
+            await redisClient.setEx(`bl:${jwtToken}`, ttl, 'true');
+        }
+    } catch (err) {
+        console.error("Redis token blacklist error:", err.message);
+    }
+};
+
 const verifyEmailToken = async (verificationToken) => {
     const user = await User.findOne({ verificationToken, verificationExpires: { $gt: Date.now() } });
     if (!user) {
@@ -69,4 +93,6 @@ const verifyEmailToken = async (verificationToken) => {
     await user.save();
 };
 
-module.exports = { signup, login, verifyEmailToken };
+
+
+module.exports = { signup, login, logout, verifyEmailToken };

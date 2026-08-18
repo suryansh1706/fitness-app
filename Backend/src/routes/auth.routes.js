@@ -7,6 +7,7 @@ const {
   loginController,
   verifyTokenController,
   verifyController,
+  logoutController,
 } = require("../controllers/auth.controller");
 const {
   signupValidation,
@@ -19,6 +20,7 @@ router.post("/login", loginValidation, loginController);
 router.post("/signup", signupValidation, signupController);
 router.get("/verify-email", verifyTokenController);
 router.get("/verify", ensureAuth, verifyController);
+router.post("/logout", ensureAuth, logoutController);
 
 // OAuth Routes (Google)
 router.get(
