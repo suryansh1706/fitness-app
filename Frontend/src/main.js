@@ -4,11 +4,16 @@ import { appController } from './controllers/app.controller.js';
 import { workoutController } from './controllers/workout.controller.js';
 import { loginView } from './views/login.view.js';
 import { signupView } from './views/signup.view.js';
-import { apiService } from './services/api.service.js';
+import { apiService, API_BASE_URL } from './services/api.service.js';
 import { helpers } from './utils/helpers.js';
 
 // Initialize app based on current page
 document.addEventListener('DOMContentLoaded', async () => {
+    // Set dynamic backend URL for Google OAuth buttons
+    document.querySelectorAll('.google-auth-btn').forEach(btn => {
+        btn.href = `${API_BASE_URL}/auth/google`;
+    });
+
     // Check for token in URL query params (e.g. from Google OAuth redirect)
     const urlParams = new URLSearchParams(window.location.search);
     const tokenParam = urlParams.get('token');
@@ -17,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({ path: cleanUrl }, '', cleanUrl);
     }
+
 
     const currentPage = window.location.pathname;
 

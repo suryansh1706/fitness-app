@@ -1,5 +1,8 @@
 // Centralized API service - all API calls in one place
-const API_BASE_URL = 'http://localhost:5000';
+export const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? 'http://localhost:5000'
+    : window.location.origin;
+
 
 function getHeaders() {
     const headers = { 'Content-Type': 'application/json' };
