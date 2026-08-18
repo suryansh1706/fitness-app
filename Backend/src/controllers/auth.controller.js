@@ -20,11 +20,12 @@ const loginController = async (req, res) => {
     res.cookie("jwtToken", result.jwtToken, {
       httpOnly: true,
       secure: isProduction,
-      sameSite: "lax",
+      sameSite: isProduction ? "none" : "lax",
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
     res.status(200).json(result);
+
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
