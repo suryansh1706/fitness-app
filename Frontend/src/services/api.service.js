@@ -1,7 +1,8 @@
 // Centralized API service - all API calls in one place
 export const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:5000'
-    : window.location.origin;
+    : (window.PRODUCTION_API_URL || 'https://your-backend-domain.onrender.com');
+
 
 
 function getHeaders() {

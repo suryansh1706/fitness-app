@@ -33,11 +33,13 @@ const loginController = async (req, res) => {
 
 const verifyTokenController = async (req, res) => {
   const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
+  const isProduction = process.env.NODE_ENV === "production";
+  const pathPrefix = isProduction ? "" : "/Frontend/public";
   try {
     await verifyEmailToken(req.query.token);
-    return res.redirect(`${frontendUrl}/Frontend/public/login.html`);
+    return res.redirect(`${frontendUrl}${pathPrefix}/login.html`);
   } catch (error) {
-    return res.redirect(`${frontendUrl}/Frontend/public/error.html`);
+    return res.redirect(`${frontendUrl}${pathPrefix}/error.html`);
   }
 };
 

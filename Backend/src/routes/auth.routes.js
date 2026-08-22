@@ -48,7 +48,8 @@ router.get(
     });
 
     const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
-    res.redirect(`${frontendUrl}/Frontend/public/dashboard.html?token=${jwtToken}`);
+    const pathPrefix = isProduction ? "" : "/Frontend/public";
+    res.redirect(`${frontendUrl}${pathPrefix}/dashboard.html?token=${jwtToken}`);
   },
 );
 
