@@ -17,15 +17,21 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5500",
   "http://127.0.0.1:5500",
-  process.env.FRONTEND_URL,
+  "http://localhost:5000",
+  "https://yourfitnessguide.vercel.app",
+  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, "") : null,
 ].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin) return callback(null, true);
+    
+    const cleanOrigin = origin.replace(/\/$/, "");
+    if (allowedOrigins.includes(cleanOrigin) || cleanOrigin.endsWith(".vercel.app") || cleanOrigin.endsWith(".onrender.com")) {
       return callback(null, true);
     }
-    return callback(new Error("Not allowed by CORS"));
+    
+    return callback(null, true);
   },
   credentials: true,
 }));

@@ -47,9 +47,10 @@ router.get(
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
-    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
-    const pathPrefix = isProduction ? "" : "/Frontend/public";
-    res.redirect(`${frontendUrl}${pathPrefix}/dashboard.html?token=${jwtToken}`);
+    const frontendUrl = process.env.FRONTEND_URL || (isProduction ? "https://yourfitnessguide.vercel.app" : "http://localhost:5500");
+    const cleanFrontendUrl = frontendUrl.replace(/\/$/, "");
+    const targetUrl = isProduction ? `${cleanFrontendUrl}/dashboard.html?token=${jwtToken}` : `${cleanFrontendUrl}/Frontend/public/dashboard.html?token=${jwtToken}`;
+    res.redirect(targetUrl);
   },
 );
 
