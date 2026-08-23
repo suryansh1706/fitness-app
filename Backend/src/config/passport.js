@@ -17,22 +17,47 @@ passport.use(new GoogleStrategy(
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: callbackURL,
   },
-  async (profile, done) => {
+  async (accessToken, refreshToken, profile, done) => {
     try {
-      let user = await User.findOne({ googleId: profile.id });
+      const email = profile.email || (profile.emails && profile.emails[0] && profile.emails[0].value);
+      const googleId = profile.id;
+      const displayName = profile.displayName || profile.name?.givenName || (email ? email.split('@')[0] : 'User');
+
+      if (!email) {
+        return done(new Error("No email address associated with this Google account"), false);
+      }
+
+      let user = await User.findOne({
+        $or: [{ googleId: googleId }, { email: email }]
+      });
 
       if (!user) {
         user = await User.create({
-          googleId: profile.id,
-          displayName: profile.displayName,
-          email: profile.email,
-          provider: "google"
+          googleId: googleId,
+          displayName: displayName,
+          username: displayName,
+          email: email,
+          provider: "google",
+          isVerified: true
         });
+      } else {
+        let updated = false;
+        if (!user.googleId) {
+          user.googleId = googleId;
+          updated = true;
+        }
+        if (!user.isVerified) {
+          user.isVerified = true;
+          updated = true;
+        }
+        if (updated) {
+          await user.save();
+        }
       }
 
       return done(null, user);
     } catch (err) {
-      return done(err);
+      return done(err, false);
     }
   }
 ));

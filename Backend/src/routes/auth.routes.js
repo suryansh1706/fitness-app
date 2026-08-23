@@ -30,27 +30,35 @@ router.get(
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { session: false }),
-  (req, res) => {
-    const jwtToken = jwt.sign(
-      { email: req.user.email, _id: req.user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" },
-    );
+  (req, res, next) => {
+    passport.authenticate("google", { session: false }, (err, user, info) => {
+      const isProduction = process.env.NODE_ENV === "production";
+      const frontendUrl = process.env.FRONTEND_URL || (isProduction ? "https://yourfitnessguide.vercel.app" : "http://localhost:5500");
+      const cleanFrontendUrl = frontendUrl.replace(/\/$/, "");
 
-    const isProduction = process.env.NODE_ENV === "production";
-    res.cookie("jwtToken", jwtToken, {
-      httpOnly: true,
-      secure: isProduction,
-      sameSite: isProduction ? "none" : "lax",
-      path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
+      if (err || !user) {
+        console.error("Google OAuth error:", err || info);
+        const loginPage = isProduction ? `${cleanFrontendUrl}/login.html?error=auth_failed` : `${cleanFrontendUrl}/Frontend/public/login.html?error=auth_failed`;
+        return res.redirect(loginPage);
+      }
 
-    const frontendUrl = process.env.FRONTEND_URL || (isProduction ? "https://yourfitnessguide.vercel.app" : "http://localhost:5500");
-    const cleanFrontendUrl = frontendUrl.replace(/\/$/, "");
-    const targetUrl = isProduction ? `${cleanFrontendUrl}/dashboard.html?token=${jwtToken}` : `${cleanFrontendUrl}/Frontend/public/dashboard.html?token=${jwtToken}`;
-    res.redirect(targetUrl);
+      const jwtToken = jwt.sign(
+        { email: user.email, _id: user._id },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" },
+      );
+
+      res.cookie("jwtToken", jwtToken, {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        path: "/",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
+      const targetUrl = isProduction ? `${cleanFrontendUrl}/dashboard.html?token=${jwtToken}` : `${cleanFrontendUrl}/Frontend/public/dashboard.html?token=${jwtToken}`;
+      res.redirect(targetUrl);
+    })(req, res, next);
   },
 );
 
