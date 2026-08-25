@@ -28,8 +28,11 @@ const saveMeal = async (userId, mealData) => {
             await redisClient.del(`meals:${userId}`);
             await redisClient.del(`macros:${userId}:${todayStr}`);
 
-            // Invalidate search cache entries for this user
-            const searchKeys = await redisClient.keys(`search:meals:${userId}:*`);
+            // Invalidate search cache entries for this user using scanIterator (non-blocking)
+            const searchKeys = [];
+            for await (const key of redisClient.scanIterator({ MATCH: `search:meals:${userId}:*` })) {
+                searchKeys.push(key);
+            }
             if (searchKeys.length > 0) {
                 await redisClient.del(searchKeys);
             }
